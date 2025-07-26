@@ -1,0 +1,16 @@
+# dev-install 用の設定例（controller ノード）
+HOSTNAME=controller.example.com
+NODE_TYPE=controller
+
+# パスワード共通設定
+ADMIN_PASSWORD=secret
+DATABASE_PASSWORD=secret
+RABBIT_PASSWORD=secret
+SERVICE_PASSWORD=secret
+
+# 外部NIC（eth0 など）
+INTERFACE=eth0
+
+# ネットワーク設定（OpenStack管理用のブリッジ等）
+PUBLIC_INTERFACE=eth0
+PRIVATE_INTERFACE=eth1
