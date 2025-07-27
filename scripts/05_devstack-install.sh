@@ -14,6 +14,10 @@ if ! id "$DEVSTACK_USER" &>/dev/null; then
   echo "$DEVSTACK_USER ALL=(ALL) NOPASSWD: ALL" > "/etc/sudoers.d/$DEVSTACK_USER"
 fi
 
+# /opt/devstack を stack に所有させる
+mkdir -p "$DEVSTACK_DIR"
+chown -R $DEVSTACK_USER:$DEVSTACK_USER "$DEVSTACK_DIR"
+
 # DevStackをクローン（stackユーザーの権限で）
 su - "$DEVSTACK_USER" -c "git clone https://opendev.org/openstack/devstack.git $DEVSTACK_DIR"
 
