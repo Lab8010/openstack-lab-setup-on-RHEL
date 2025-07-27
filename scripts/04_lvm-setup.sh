@@ -1,12 +1,15 @@
 #!/bin/bash
 set -e
 
-# ディスクが /dev/sdb の前提（適宜変更）
-DISK=/dev/sdb
-VG=cinder-volumes
+# LVMの初期化とcinder-volumes VG作成
+# ここを環境に合わせて変更(/dev/sdbや/dev/vdbなど、必要に応じてlsblkで確認ください)
+DISK_DEVICE="/dev/nvme0n2"  
 
-# LVM設定
-pvcreate $DISK
-vgcreate $VG $DISK
+# 既存署名があるとエラーになることがあるので wipefs
+wipefs -a "$DISK_DEVICE"
 
-echo "LVM（$VG） を作成しました"
+# LVMとして初期化
+pvcreate "$DISK_DEVICE"
+vgcreate cinder-volumes "$DISK_DEVICE"
+
+echo "LVMバックエンド (cinder-volumes) を $DISK_DEVICE に作成しました"
